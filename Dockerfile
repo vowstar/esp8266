@@ -28,6 +28,7 @@ RUN apk --no-cache add \
         unzip \
         help2man \
         wget \
+        tar \
         expat-dev \
     && pip install pyserial \
     && git clone --recursive https://github.com/pfalcon/esp-open-sdk.git /opt \

@@ -2,7 +2,7 @@ FROM alpine:edge
 
 MAINTAINER Huang Rui vowstar@gmail.com
 
-ENV TOOLCHAIN /opt/xtensa-lx106-elf
+ENV TOOLCHAIN /opt/xtensa-esp108-elf
 ENV PATH $(TOOLCHAIN)/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin 
 ENV COMPILE gcc
 
@@ -40,8 +40,15 @@ RUN apk --no-cache add \
 USER build
 
 RUN cd /opt/crosstool \
-    && git clone --recursive https://github.com/pfalcon/esp-open-sdk.git esp-open-sdk \
-    && cd esp-open-sdk \
-    && make STANDALONE=n TOOLCHAIN=$(TOOLCHAIN)
+    && git clone -b esp108-1.21.0 git://github.com/jcmvbkbc/crosstool-NG.git crosstool-NG \
+    && cd crosstool-NG \
+    && ./bootstrap \
+    && ./configure --prefix=`pwd` \
+    && make \
+    && make install \
+    && ./ct-ng xtensa-esp108-elf \
+    && sed -r -i.org s%CT_PREFIX_DIR=.*%CT_PREFIX_DIR="$(TOOLCHAIN)"% .config
+    && sed -r -i s%CT_INSTALL_DIR_RO=y%"#"CT_INSTALL_DIR_RO=y% .config
+    && ./ct-ng build 
 
 USER root

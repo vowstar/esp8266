@@ -30,7 +30,7 @@ RUN apk --no-cache add \
         wget \
         expat-dev \
     && pip install pyserial \
-    && && git clone --recursive https://github.com/pfalcon/esp-open-sdk.git /opt \
+    && git clone --recursive https://github.com/pfalcon/esp-open-sdk.git /opt \
     && adduser -D -H -u 1000 build \
     && chown -R build /opt \
     && chgrp -R build /opt

@@ -32,16 +32,14 @@ RUN apk --no-cache add \
         wget \
         expat-dev \
     && pip install pyserial \
-    && mkdir -p /opt/crosstool \
+    && && git clone --recursive https://github.com/pfalcon/esp-open-sdk.git /opt \
     && adduser -D -H -u 1000 build \
-    && chown -R build /opt/crosstool \
-    && chgrp -R build /opt/crosstool
+    && chown -R build /opt \
+    && chgrp -R build /opt
 
 USER build
 
-RUN cd /opt/crosstool \
-    && git clone --recursive https://github.com/pfalcon/esp-open-sdk.git esp-open-sdk \
-    && cd esp-open-sdk \
-    && make STANDALONE=n TOOLCHAIN=$(TOOLCHAIN)
+RUN cd /opt \
+    && make STANDALONE=n
 
 USER root

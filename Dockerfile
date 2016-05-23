@@ -1,4 +1,4 @@
-FROM alpine:edge
+FROM alpine:latest
 
 MAINTAINER Huang Rui vowstar@gmail.com
 
@@ -29,6 +29,7 @@ RUN apk --no-cache add \
         help2man \
         wget \
         tar \
+        patch \
         expat-dev \
     && pip install pyserial \
     && git clone --recursive https://github.com/pfalcon/esp-open-sdk.git /opt \
@@ -42,3 +43,33 @@ RUN cd /opt \
     && make STANDALONE=n
 
 USER root
+
+RUN apk --purge del \
+        autoconf \
+        automake \
+        bison \
+        bzip2 \
+        flex \
+        g++ \
+        gawk \
+        gcc \
+        git \
+        gperf \
+        libtool \
+        make \
+        ncurses-dev \
+        expat-dev \
+        nano \
+        python \
+        py-pip \
+        sed \
+        texinfo \
+        unrar \
+        unzip \
+        help2man \
+        wget \
+        tar \
+        patch \
+        expat-dev \
+    && rm -rf /var/cache/apk/*
+

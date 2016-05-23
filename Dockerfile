@@ -1,12 +1,11 @@
-FROM alpine:edge
+FROM alpine:latest
 
 MAINTAINER Huang Rui vowstar@gmail.com
 
 ENV PATH /opt/esp-open-sdk/xtensa-lx106-elf/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin 
 ENV COMPILE gcc
 
-RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories \
-    && apk --no-cache add \
+RUN apk --no-cache add \
         autoconf \
         automake \
         bison \
@@ -31,5 +30,20 @@ RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/reposit
         help2man \
         wget \
         expat-dev \
-    && pip install pyserial
-    && adduser crosstoolbbs
+    && pip install pyserial \
+    && mkdir -p /opt/crosstool \
+    && adduser build \
+    && chown -R build /opt/crosstool \
+    && chgrp -R build /opt/crosstool
+
+USER build
+
+RUN cd /opt/crosstool \
+    && git clone -b lx106 https://github.com/jcmvbkbc/crosstool-NG.git crosstool-NG \
+    && cd crosstool-NG \
+    && ./bootstrap \
+    && ./configure --prefix=`pwd` \
+    && make -j`nproc` \
+    && make install \
+    && ./ct-ng xtensa-lx106-elf \
+    && ./ct-ng build 

@@ -32,7 +32,7 @@ RUN apk --no-cache add \
         expat-dev \
     && pip install pyserial \
     && mkdir -p /opt/crosstool \
-    && adduser build \
+    && adduser -D -H -u 1000 build \
     && chown -R build /opt/crosstool \
     && chgrp -R build /opt/crosstool
 

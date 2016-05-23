@@ -1,4 +1,4 @@
-FROM alpine:latest
+FROM alpine:edge
 
 MAINTAINER Huang Rui vowstar@gmail.com
 
@@ -47,3 +47,5 @@ RUN cd /opt/crosstool \
     && make install \
     && ./ct-ng xtensa-lx106-elf \
     && ./ct-ng build 
+
+USER root

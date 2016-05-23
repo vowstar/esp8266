@@ -30,6 +30,6 @@ RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/reposit
         unzip \
         help2man \
         wget \
-        libexpat-dev \
+        expat-dev \
     && pip install pyserial
     && adduser crosstoolbbs

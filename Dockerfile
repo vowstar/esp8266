@@ -2,9 +2,7 @@ FROM alpine:edge
 
 MAINTAINER Huang Rui vowstar@gmail.com
 
-ENV TOOLCHAIN /opt/xtensa-lx106-elf
-ENV PATH $(TOOLCHAIN)/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin 
-ENV COMPILE gcc
+ENV PATH=/opt/xtensa-lx106-elf/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin COMPILE=gcc
 
 RUN apk --no-cache add \
         autoconf \

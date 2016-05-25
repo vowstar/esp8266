@@ -1,4 +1,4 @@
-FROM ubuntu:14.04
+FROM debian:jessie
 
 MAINTAINER Huang Rui vowstar@gmail.com
 
@@ -26,7 +26,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update -qq \
     && pip install pyserial \
     && rm -rf /opt \
     && git clone --recursive https://github.com/pfalcon/esp-open-sdk.git /opt \
-    && adduser --system --no-create-home --uid 1000 --gid 1000 build \
+    && adduser --system --no-create-home --uid 1000 build \
     && usermod -a -G dialout build \
     && RUN echo "build ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/build \
     && chown -R build /opt/esp-open-sdk \

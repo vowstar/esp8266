@@ -1,41 +1,36 @@
-FROM alpine:latest
+FROM ubuntu:14.04
 
 MAINTAINER Huang Rui vowstar@gmail.com
 
 ENV PATH=/opt/xtensa-lx106-elf/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin COMPILE=gcc
 
-RUN apk --no-cache add \
-        autoconf \
-        automake \
-        bison \
-        bzip2 \
-        flex \
-        g++ \
-        gawk \
-        gcc \
+RUN DEBIAN_FRONTEND=noninteractive apt-get update -qq \
+    && DEBIAN_FRONTEND=noninteractive apt-get install -yq \
         git \
+        autoconf \
+        build-essential \
         gperf \
-        libtool \
-        make \
-        ncurses-dev \
-        expat-dev \
-        nano \
-        python \
-        py-pip \
-        sed \
+        bison \
+        flex \
         texinfo \
-        unrar \
-        unzip \
-        help2man \
+        libtool \
+        libncurses5-dev \
         wget \
-        tar \
-        patch \
-        expat-dev \
+        apt-utils \
+        gawk \
+        sudo \
+        unzip \
+        libexpat-dev \
+        python \
+        python-pip \
     && pip install pyserial \
+    && rm -rf /opt \
     && git clone --recursive https://github.com/pfalcon/esp-open-sdk.git /opt \
     && adduser -D -H -u 1000 build \
-    && chown -R build /opt \
-    && chgrp -R build /opt
+    && usermod -a -G dialout build \
+    && RUN echo "build ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/build \
+    && chown -R build /opt/esp-open-sdk \
+    && chgrp -R build /opt/esp-open-sdk
 
 USER build
 
@@ -44,32 +39,9 @@ RUN cd /opt \
 
 USER root
 
-RUN apk --purge del \
-        autoconf \
-        automake \
-        bison \
-        bzip2 \
-        flex \
-        g++ \
-        gawk \
-        gcc \
-        git \
-        gperf \
-        libtool \
-        make \
-        ncurses-dev \
-        expat-dev \
-        nano \
-        python \
-        py-pip \
-        sed \
-        texinfo \
-        unrar \
-        unzip \
-        help2man \
+RUN DEBIAN_FRONTEND=noninteractive apt-get purge -yq \
         wget \
-        tar \
-        patch \
-        expat-dev \
-    && rm -rf /var/cache/apk/*
+    && DEBIAN_FRONTEND=noninteractive apt-get autoremove -yq --purge \
+    && DEBIAN_FRONTEND=noninteractive apt-get clean \
+    && rm -rf /var/lib/apt/lists/* && rm -rf /tmp
 

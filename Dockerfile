@@ -26,7 +26,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update -qq \
     && pip install pyserial \
     && rm -rf /opt \
     && git clone --recursive https://github.com/pfalcon/esp-open-sdk.git /opt \
-    && adduser -D -H -u 1000 build \
+    && adduser --system --no-create-home --uid 1000 --gid 1000 build \
     && usermod -a -G dialout build \
     && RUN echo "build ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/build \
     && chown -R build /opt/esp-open-sdk \
@@ -44,4 +44,3 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get purge -yq \
     && DEBIAN_FRONTEND=noninteractive apt-get autoremove -yq --purge \
     && DEBIAN_FRONTEND=noninteractive apt-get clean \
     && rm -rf /var/lib/apt/lists/* && rm -rf /tmp
-

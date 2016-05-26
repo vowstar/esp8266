@@ -29,8 +29,8 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update -qq \
     && adduser --system --no-create-home --uid 1000 build \
     && usermod -a -G dialout build \
     && RUN echo "build ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/build \
-    && chown -R build /opt/esp-open-sdk \
-    && chgrp -R build /opt/esp-open-sdk
+    && chown -R build /opt \
+    && chgrp -R build /opt
 
 USER build
 

@@ -28,7 +28,8 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update -qq \
     && git clone --recursive https://github.com/pfalcon/esp-open-sdk.git /opt \
     && adduser --system --no-create-home --uid 1000 build \
     && usermod -a -G dialout build \
-    && RUN echo "build ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/build \
+    && echo "build ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/build \
+    && chmod 0440 /etc/sudoers.d/esp8266
     && chown -R build /opt \
     && chgrp -R build /opt
 

@@ -21,6 +21,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update -qq \
         sudo \
         unzip \
         libexpat-dev \
+        help2man \
         python \
         python-pip \
     && pip install pyserial \

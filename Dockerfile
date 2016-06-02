@@ -22,7 +22,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update -qq \
         unzip \
         libexpat-dev \
         help2man \
-        python \
+        python2.7 \
         python-pip \
     && pip install pyserial \
     && rm -rf /opt \

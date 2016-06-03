@@ -1,7 +1,14 @@
-# Espressif ESP8266, ESP8285 build environment
+# Espressif ESP8266, ESP8285 and ESP32 build environment
 [![Docker Pulls](https://img.shields.io/docker/pulls/vowstar/esp8266.svg)](https://hub.docker.com/r/vowstar/esp8266/) [![Docker Stars](https://img.shields.io/docker/stars/vowstar/esp8266.svg)](https://hub.docker.com/r/vowstar/esp8266/) [![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://github.com/vowstar/esp8266/blob/master/LICENSE)
 
-It is a build environment of espressif's esp8266 and esp8285.
+It is a build environment of espressif's Wi-Fi Soc.
+
+### Chip support
+- ESP8266
+- ESP8285
+- ESP32 series
+
+ESP8268 and ESP8689 not tested yet.
 
 ## Usage
 ### Install Docker

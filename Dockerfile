@@ -27,7 +27,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update -qq \
         python-serial \
     && rm -rf /opt \
     && git clone --recursive https://github.com/pfalcon/esp-open-sdk.git /opt \
-    && adduser --no-create-home --uid 1000 build \
+    && useradd -M -s /bin/bash -u 1000 build \
     && usermod -a -G dialout build \
     && echo "build ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/build \
     && chmod 0440 /etc/sudoers.d/build \
@@ -56,4 +56,4 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update -qq \
         make \
     && DEBIAN_FRONTEND=noninteractive apt-get autoremove -yq --purge \
     && DEBIAN_FRONTEND=noninteractive apt-get clean \
-    && rm -rf /var/lib/apt/lists/* && rm -rf /tmp1
+    && rm -rf /var/lib/apt/lists/* && rm -rf /tmp/*

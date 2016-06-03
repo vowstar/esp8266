@@ -32,16 +32,10 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update -qq \
     && echo "build ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/build \
     && chmod 0440 /etc/sudoers.d/build \
     && chown -R build /opt \
-    && chgrp -R build /opt
-
-USER build
-
-RUN cd /opt \
-    && make STANDALONE=n
-
-USER root
-
-RUN DEBIAN_FRONTEND=noninteractive apt-get purge -yq \
+    && chgrp -R build /opt \
+    && cd /opt \
+    && su -c build make STANDALONE=n
+    && DEBIAN_FRONTEND=noninteractive apt-get purge -yq \
         git \
         autoconf \
         build-essential \

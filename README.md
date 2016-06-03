@@ -1,14 +1,24 @@
-# Espressif ESP8266, ESP8285 and ESP32 build environment
+# ESP32, ESP8266 and ESP8285 build environment
 [![Docker Pulls](https://img.shields.io/docker/pulls/vowstar/esp8266.svg)](https://hub.docker.com/r/vowstar/esp8266/) [![Docker Stars](https://img.shields.io/docker/stars/vowstar/esp8266.svg)](https://hub.docker.com/r/vowstar/esp8266/) [![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://github.com/vowstar/esp8266/blob/master/LICENSE)
 
-It is a build environment of espressif's Wi-Fi Soc.
+It is a build environment of espressif's Wi-Fi(or bluetooth) Soc.
+
+## Overview
 
 ### Chip support
+
 - ESP8266
 - ESP8285
 - ESP32 series
 
 ESP8268 and ESP8689 not tested yet.
+
+### Tools
+
+- xtensa-lx106-elf toolchain
+- xtensa-esp108-elf toolchain
+- esptool-ck
+- python and pyserial
 
 ## Usage
 ### Install Docker
@@ -50,12 +60,22 @@ For esp32
 
 ``esptool -cc esp32 -cp /dev/ttyUSB0 -cd nodemcu -ca 0x00000 -cf 00000.bin -ca 0x40000 -cf 40000.bin``
 
-## boot2docker under VM
+## Special
+
+### Build esp firmware On Windows/OS X
 
 If you run docker under a VM, such as [Oracle VM VirtualBox](https://www.virtualbox.org/), the host's serial port and folder should share to VM
  image first. You may need share host's USB device which used as serial adapter to VM image, a VirtualBox Extension Pack is needed for USB 2.0 and USB 3.0 devices.
 
-## Build From Scratch
+For example, Mount `` D:\ `` drive on Windows using docker-machine
+
+- Share host's `` D:\ `` drive to docker linux images in VirtualBox, and name shared name `` d ``
+- Start docker image using docker machine `` docker-machine start default `` or other way
+- Mount vboxsf file-system using command below
+
+`` docker-machine ssh default "sudo mkdir /d && sudo mount -t vboxsf -o uid=1000,gid=50 d /d" ``
+
+### Build Dockerfile From Scratch
 
 If you want build from scratch, please use [Dockerfile-From-Scratch](https://github.com/vowstar/esp8266/blob/master/Dockerfile-From-Scratch)
 

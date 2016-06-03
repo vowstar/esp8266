@@ -17,7 +17,7 @@ For example
 
 ``docker run --rm -ti -v `pwd`:/build vowstar/esp8266 /bin/bash``
 
-This can mount host's `` `pwd` `` in container's `` /build `` path.
+This can mount host's `` `pwd` `` to container's `` /build `` path.
 
 ### Programming Hardware
 
@@ -43,6 +43,10 @@ For esp32
 
 ``esptool -cc esp32 -cp /dev/ttyUSB0 -cd nodemcu -ca 0x00000 -cf 00000.bin -ca 0x40000 -cf 40000.bin``
 
+## boot2docker under VM
+
+If you run docker under a VM, such as [Oracle VM VirtualBox](https://www.virtualbox.org/), the host's serial port and folder should share to VM
+ image first. You may need share host's USB device which used as serial adapter to VM image, a VirtualBox Extension Pack is needed for USB 2.0 and USB 3.0 devices.
 
 ## Build From Scratch
 

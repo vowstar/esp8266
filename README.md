@@ -67,13 +67,23 @@ For esp32
 If you run docker under a VM, such as [Oracle VM VirtualBox](https://www.virtualbox.org/), the host's serial port and folder should share to VM
  image first. You may need share host's USB device which used as serial adapter to VM image, a VirtualBox Extension Pack is needed for USB 2.0 and USB 3.0 devices.
 
-For example, Mount `` D:\ `` drive on Windows using docker-machine
+For example, Mount `` D:\ `` drive on Windows using docker-machine in git bash
 
 - Share host's `` D:\ `` drive to docker linux images in VirtualBox, and name shared name `` d ``
 - Start docker image using docker machine `` docker-machine start default `` or other way
 - Mount vboxsf file-system using command below
 
 `` docker-machine ssh default "sudo mkdir /d && sudo mount -t vboxsf -o uid=1000,gid=50 d /d" ``
+
+And then, you can play 
+
+`` docker run --rm -ti -v /d/xxx:/build -w "/build" --env "SDK_BASE=/build/ESP_RTOS_SDK/" vowstar/esp8266 bash ``
+
+`` /d/xxx `` is the host path, `` /build `` is the container PATH, use `` --env `` flag can pass some environment variable in container, such as SDK_PATH and BIN_PATH by espressif. Also you can pass something like `` --env APP=1 --env SPI_SIZE_MAP=2 --env BOOT=new `` for custom and special build.
+
+Finally, `` make `` and use esptool to program it. Before programming, make sure the host usb to serial adapter is assigned to VirtualBox's linux image.
+
+OSX is much easier, also need do same work on VirtualBox.
 
 ### Build Dockerfile From Scratch
 

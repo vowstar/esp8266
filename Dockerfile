@@ -23,8 +23,8 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update -qq \
         libexpat-dev \
         help2man \
         python2.7 \
-        python-pip \
-    && pip install pyserial \
+        python2.7-dev \
+        python-serial \
     && rm -rf /opt \
     && git clone --recursive https://github.com/pfalcon/esp-open-sdk.git /opt \
     && adduser --no-create-home --uid 1000 build \
@@ -42,7 +42,24 @@ RUN cd /opt \
 USER root
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get purge -yq \
+        git \
+        autoconf \
+        build-essential \
+        gperf \
+        bison \
+        flex \
+        texinfo \
+        libtool \
+        libncurses5-dev \
         wget \
+        apt-utils \
+        gawk \
+        unzip \
+        libexpat-dev \
+        help2man \
+        python2.7-dev \
+    && DEBIAN_FRONTEND=noninteractive apt-get install -yq \
+        make \
     && DEBIAN_FRONTEND=noninteractive apt-get autoremove -yq --purge \
     && DEBIAN_FRONTEND=noninteractive apt-get clean \
     && rm -rf /var/lib/apt/lists/* && rm -rf /tmp1

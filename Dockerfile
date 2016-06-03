@@ -34,7 +34,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update -qq \
     && chown -R build /opt \
     && chgrp -R build /opt \
     && cd /opt \
-    && su build -c "make STANDALONE=n"
+    && su build -c "make STANDALONE=n" \
     && DEBIAN_FRONTEND=noninteractive apt-get purge -yq \
         git \
         autoconf \

@@ -35,7 +35,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update -qq \
     && chgrp -R build /opt \
     && cd /opt \
     && su build -c "make STANDALONE=n" \
-    && rm -rf $(ls /opt/ | grep -v xtensa-lx106-elf)
+    && rm -rf $(ls /opt/ | grep -v xtensa-lx106-elf) \
     && DEBIAN_FRONTEND=noninteractive apt-get purge -yq \
         git \
         autoconf \
@@ -57,4 +57,5 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update -qq \
         make \
     && DEBIAN_FRONTEND=noninteractive apt-get autoremove -yq --purge \
     && DEBIAN_FRONTEND=noninteractive apt-get clean \
-    && rm -rf /var/lib/apt/lists/* && rm -rf /tmp/*
+    && rm -rf /var/lib/apt/lists/* \
+    && rm -rf /tmp/*

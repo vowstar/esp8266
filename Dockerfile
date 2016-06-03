@@ -34,7 +34,8 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update -qq \
     && chown -R build /opt \
     && chgrp -R build /opt \
     && cd /opt \
-    && su build -c "make STANDALONE=n" \
+    && su build -c "make STANDALONE=y" \
+    && rm -rf $(ls /opt/ | grep -v xtensa-lx106-elf)
     && DEBIAN_FRONTEND=noninteractive apt-get purge -yq \
         git \
         autoconf \

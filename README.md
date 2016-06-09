@@ -46,7 +46,9 @@ The parameters is  ``-v /dev/host:/dev/container``
 
 For example
 
-``sudo docker run --rm -ti --privileged -v /dev/ttyUSB0:/dev/ttyUSB0 -v `pwd`:/build vowstar/esp8266 /bin/bash``
+``docker run --name build --rm -ti --device /dev/ttyUSB0:/dev/ttyUSB0 -v `pwd`:/build vowstar/esp8266 /bin/bash``
+
+The ``--device`` flag can export a host device in container without privileged mode.
 
 This can export host's `` /dev/ttyUSB0 `` in container's `` /dev/ttyUSB0 ``.
 
@@ -61,6 +63,14 @@ For esp32
 ``esptool -cc esp32 -cp /dev/ttyUSB0 -cd nodemcu -ca 0x00000 -cf 00000.bin -ca 0x40000 -cf 40000.bin``
 
 ## Special
+
+### Export all device to container
+
+It may dangerous
+
+``docker run --name build --rm -ti --privileged -v /dev/ttyUSB0:/dev/ttyUSB0 -v `pwd`:/build vowstar/esp8266 /bin/bash``
+
+The ``--privileged`` flag can export all host device in container. May by you like ``--device`` flag to limit container access.
 
 ### Build esp firmware On Windows/OS X
 

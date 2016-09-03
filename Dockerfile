@@ -2,7 +2,7 @@ FROM ubuntu:16.04
 
 MAINTAINER Huang Rui vowstar@gmail.com
 
-ENV PATH=/opt/xtensa-lx106-elf/bin:/opt/xtensa-esp108-elf/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin COMPILE=gcc
+ENV PATH=/opt/xtensa-lx106-elf/bin:/opt/xtensa-esp108-elf/bin:/opt/xtensa-esp32-elf/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin COMPILE=gcc
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get update -qq \
     && DEBIAN_FRONTEND=noninteractive apt-get install -yq \
@@ -10,11 +10,16 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update -qq \
         gcc \
         python2.7 \
         python-serial \
+        libncurses-dev \
+        flex \
+        bison \
+        gperf \
         make \
     && git clone --recursive https://github.com/vowstar/xtensa-toolchain.git /opt/xtensa-toolchain \
     && cd /opt/xtensa-toolchain \
     && tar -zxvf xtensa-lx106-elf-linux64.tar.gz -C /opt/ \
     && tar -zxvf xtensa-esp108-elf-linux64.tar.gz -C /opt/ \
+    && tar -zxvf xtensa-esp32-elf-linux64.tar.gz -C /opt/ \
     && cp /opt/xtensa-toolchain/library/esp8266/* /opt/xtensa-lx106-elf/xtensa-lx106-elf/sysroot/lib/ \
     && git clone --recursive https://github.com/igrr/esptool-ck.git /opt/esptool-ck \
     && cd /opt/esptool-ck \

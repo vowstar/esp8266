@@ -9,6 +9,7 @@ It is a build environment of espressif's Wi-Fi(or bluetooth) Soc.
 
 - ESP8266
 - ESP8285
+- ESP31B
 - ESP32 series
 
 ESP8268 and ESP8689 not tested yet.
@@ -17,6 +18,7 @@ ESP8268 and ESP8689 not tested yet.
 
 - xtensa-lx106-elf toolchain
 - xtensa-esp108-elf toolchain
+- xtensa-esp32-elf toolchain
 - esptool-ck
 - python and pyserial
 

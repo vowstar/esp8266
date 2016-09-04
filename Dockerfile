@@ -15,6 +15,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update -qq \
         bison \
         gperf \
         make \
+        wget \
     && git clone --recursive https://github.com/vowstar/xtensa-toolchain.git /opt/xtensa-toolchain \
     && cd /opt/xtensa-toolchain \
     && tar -zxvf xtensa-lx106-elf-linux64.tar.gz -C /opt/ \
@@ -29,8 +30,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update -qq \
     && rm -rf /opt/xtensa-toolchain \
     && rm -rf /opt/esptool-ck \
     && DEBIAN_FRONTEND=noninteractive apt-get purge -yq \
-        git \
-        gcc \
+        wget \
     && DEBIAN_FRONTEND=noninteractive apt-get autoremove -yq --purge \
     && DEBIAN_FRONTEND=noninteractive apt-get clean \
     && rm -rf /var/lib/apt/lists/* \

@@ -97,6 +97,10 @@ Finally, `` make `` and use esptool to program it. Before programming, make sure
 
 OSX is much easier, also need do same work on VirtualBox.
 
+Also, you can build it with ESP-IDF for esp32 by define IDF_PATH environment:
+
+``docker run -ti --name esp-builder --env IDF_PATH=/build/esp-idf --device /dev/ttyUSB0:/dev/ttyUSB0  -v ~/Projects/2016/esp8266:/build vowstar/esp8266 /bin/bash``
+
 ### Build Dockerfile From Scratch
 
 If you want build from scratch, please use [Dockerfile-From-Scratch](https://github.com/vowstar/esp8266/blob/master/Dockerfile-From-Scratch)

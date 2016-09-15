@@ -21,7 +21,8 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update -qq \
     && tar -zxvf xtensa-lx106-elf-linux64.tar.gz -C /opt/ \
     && tar -zxvf xtensa-esp108-elf-linux64.tar.gz -C /opt/ \
     && tar -zxvf xtensa-esp32-elf-linux64.tar.gz -C /opt/ \
-    && cp /opt/xtensa-toolchain/library/esp8266/* /opt/xtensa-lx106-elf/xtensa-lx106-elf/sysroot/lib/ \
+    && cp -f /opt/xtensa-toolchain/library/esp8266/* /opt/xtensa-lx106-elf/xtensa-lx106-elf/sysroot/lib/ \
+    && cp -f /opt/xtensa-toolchain/include/xtensa/* /opt/xtensa-lx106-elf/xtensa-lx106-elf/include/xtensa/ \
     && git clone --recursive https://github.com/igrr/esptool-ck.git /opt/esptool-ck \
     && cd /opt/esptool-ck \
     && make \
@@ -30,7 +31,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update -qq \
     && rm -rf /opt/xtensa-toolchain \
     && rm -rf /opt/esptool-ck \
     && DEBIAN_FRONTEND=noninteractive apt-get purge -yq \
-        wget \
+        -h \
     && DEBIAN_FRONTEND=noninteractive apt-get autoremove -yq --purge \
     && DEBIAN_FRONTEND=noninteractive apt-get clean \
     && rm -rf /var/lib/apt/lists/* \

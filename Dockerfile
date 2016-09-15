@@ -21,8 +21,8 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update -qq \
     && tar -zxvf xtensa-lx106-elf-linux64.tar.gz -C /opt/ \
     && tar -zxvf xtensa-esp108-elf-linux64.tar.gz -C /opt/ \
     && tar -zxvf xtensa-esp32-elf-linux64.tar.gz -C /opt/ \
-    && cp -f /opt/xtensa-toolchain/library/esp8266/* /opt/xtensa-lx106-elf/xtensa-lx106-elf/sysroot/lib/ \
-    && cp -f /opt/xtensa-toolchain/include/xtensa/* /opt/xtensa-lx106-elf/xtensa-lx106-elf/include/xtensa/ \
+    && cp -rf /opt/xtensa-toolchain/library/esp8266/* /opt/xtensa-lx106-elf/xtensa-lx106-elf/sysroot/lib/ \
+    && cp -rf /opt/xtensa-toolchain/include/xtensa/* /opt/xtensa-lx106-elf/xtensa-lx106-elf/include/xtensa/ \
     && git clone --recursive https://github.com/igrr/esptool-ck.git /opt/esptool-ck \
     && cd /opt/esptool-ck \
     && make \

@@ -16,6 +16,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update -qq \
         gperf \
         make \
         wget \
+        unzip \
     && git clone --recursive https://github.com/vowstar/xtensa-toolchain.git /opt/xtensa-toolchain \
     && cd /opt/xtensa-toolchain \
     && tar -zxvf xtensa-lx106-elf-linux64.tar.gz -C /opt/ \

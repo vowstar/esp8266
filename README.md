@@ -56,13 +56,51 @@ This can export host's `` /dev/ttyUSB0 `` in container's `` /dev/ttyUSB0 ``.
 
 And then, use container's esptool to program it.
 
-For esp8266
+#### For esp8266
 
 ``esptool -cc esp8266 -cp /dev/ttyUSB0 -cd nodemcu -ca 0x00000 -cf 00000.bin -ca 0x40000 -cf 40000.bin``
-
-For esp32
+ 
+#### For esp32
 
 ``esptool -cc esp32 -cp /dev/ttyUSB0 -cd nodemcu -ca 0x00000 -cf 00000.bin -ca 0x40000 -cf 40000.bin``
+
+## Set build environment
+
+### For esp8266 freertos SDK
+
+You can build it with ESP_RTOS_SDK for esp8266 by define SDK_BASE environment:
+
+``docker run -ti --name esp-builder -e SDK_BASE=/build/esp8266/ESP_RTOS_SDK/ --device /dev/ttyUSB0:/dev/ttyUSB0  -v ~/Projects/2016:/build vowstar/esp8266 /bin/bash``
+
+Firstly, you __must__ put ``ESP_RTOS_SDK`` to ``~/Projects/2016/esp8266/ESP_RTOS_SDK`` (aka container's ``/build/esp8266/ESP_RTOS_SDK``).
+
+Then you can ``make`` your project.
+
+
+### For esp32's esp-idf
+
+You can build it with ESP-IDF for esp32 by define IDF_PATH environment:
+
+``docker run -ti --name esp-builder -e IDF_PATH=/build/esp32/esp-idf --device /dev/ttyUSB0:/dev/ttyUSB0  -v ~/Projects/2016:/build vowstar/esp8266 /bin/bash``
+
+Firstly, you __must__ put ``ESP-IDF`` to ``~/Projects/2016/esp32/ESP-IDF`` (aka container's ``/build/32/ESP-IDF``).
+
+Then you can ``make`` or ``make menuconfig``, and use ``make flash`` to programming esp32.
+
+### For nodemcu project and normal esp8266 project
+
+``docker run -ti --name esp-builder --device /dev/ttyUSB0:/dev/ttyUSB0  -v ~/Projects/2016:/build vowstar/esp8266 /bin/bash``
+
+No special setting required, just build it.
+
+
+### Start and enter an old container
+
+
+```
+docker start esp-builder
+docker attach esp-builder
+```
 
 ## Special
 
@@ -97,9 +135,6 @@ Finally, `` make `` and use esptool to program it. Before programming, make sure
 
 OSX is much easier, also need do same work on VirtualBox.
 
-Also, you can build it with ESP-IDF for esp32 by define IDF_PATH environment:
-
-``docker run -ti --name esp-builder --env IDF_PATH="/build/esp-idf" --device /dev/ttyUSB0:/dev/ttyUSB0  -v ~/Projects/2016/esp8266:/build vowstar/esp8266 /bin/bash``
 
 ### Build Dockerfile From Scratch
 

@@ -32,7 +32,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update -qq \
     && cd /opt \
     && rm -rf /opt/xtensa-toolchain \
     && rm -rf /opt/esptool-ck \
-    && pip install esptool.py \
+    && pip install esptool \
     && DEBIAN_FRONTEND=noninteractive apt-get purge -yq \
         -h \
     && DEBIAN_FRONTEND=noninteractive apt-get autoremove -yq --purge \
